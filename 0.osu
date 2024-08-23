@@ -1,0 +1,57 @@
+osu file format v14
+
+[General]
+AudioFilename: 0.mp3
+AudioLeadIn: 0
+PreviewTime: -1
+Countdown: 1
+SampleSet: Soft
+StackLeniency: 0.7
+Mode: 3
+LetterboxInBreaks: 0
+SpecialStyle: 0
+WidescreenStoryboard: 1
+
+[Editor]
+DistanceSpacing: 0.8
+BeatDivisor: 16
+GridSize: 8
+TimelineZoom: 3.799999
+
+[Metadata]
+Title:deleteupondownload
+TitleUnicode:deleteupondownload
+Artist:deleteupondownload
+ArtistUnicode:deleteupondownload
+Creator:deleteupondownload
+Version:deleteupondownload
+Source:
+Tags:
+BeatmapID:0
+BeatmapSetID:-1
+
+[Difficulty]
+HPDrainRate:8
+CircleSize:4
+OverallDifficulty:8
+ApproachRate:5
+SliderMultiplier:1.4
+SliderTickRate:1
+
+[Events]
+//Background and Video events
+0,0,"0.jpg",0,0
+//Break Periods
+//Storyboard Layer 0 (Background)
+//Storyboard Layer 1 (Fail)
+//Storyboard Layer 2 (Pass)
+//Storyboard Layer 3 (Foreground)
+//Storyboard Layer 4 (Overlay)
+//Storyboard Sound Samples
+
+[TimingPoints]
+15,4000,4,2,0,100,1,0
+
+
+[HitObjects]
+320,192,637599,5,0,0:0:0:0:
