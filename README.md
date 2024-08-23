@@ -2,7 +2,7 @@
 * ## Environment
   * requirements.txt
 * ## Usage
-  * Pack multiple songs into one .osz file from target folder. (Note that each folder in target folder can only contain ont .osu file)
+  * Pack multiple songs into one .osz file from target folder. (Note that each folder in target folder can only contain one .osu file)
   * Need to set pack name,creator name,target folder path
   * Example
     * folder structure:
