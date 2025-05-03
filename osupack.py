@@ -11,7 +11,7 @@ def merge_name(song_name=str(),creator=str()):
 def get_songs(song_path):
     return os.listdir(song_path)
 
-def get_modified_beatmap_str(lines,cntr=int(),song_name=str(),creator=str(),pic=str(),aud=str(),pak=str()):
+def get_modified_beatmap_str(lines,cntr=int(),song_name=str(),creator=str(),pic=str(),aud=str(),pak=str(),tags=str()):
     #lines=file.readlines()
     new_name=merge_name(song_name,creator)
     pack_name=pak
@@ -34,6 +34,8 @@ def get_modified_beatmap_str(lines,cntr=int(),song_name=str(),creator=str(),pic=
             ret+='BeatmapID:0\n'
         elif i.find('BeatmapSetID')!=-1:
             ret+='BeatmapSetID:-1\n'
+        elif i.find('Tags')!=-1:
+            ret+='Tags:'+tags+'\n'
         elif md==0:
             if i.find('[Events]')!=-1:
                 ret+='[Events]\n'
@@ -91,6 +93,13 @@ def get_creator(lines):
             isplit=isp.split(':')
             return isplit[-1].strip()
 
+def get_tags(lines):
+    for i in lines:
+        if i.find('Tags')!=-1:
+            isp=i.strip('\n')
+            isplit=isp.split(':')
+            return isplit[-1].strip()
+
 def zipDir(dirpath, outFullName):
     """
     压缩指定文件夹
@@ -132,6 +141,14 @@ class Packer(cmd2.Cmd):
         for i in song_list:
             father_path=song_path+'//'+i
             lst=os.listdir(father_path)
+            all_tags=''
+            for j in lst:
+                spl=j.split('.')
+                if spl[-1]=='osu':
+                    osu_file_name=father_path+'//'+j
+                    osu_file=open(osu_file_name,encoding='utf-8')
+                    lns=osu_file.readlines()
+                    all_tags+=get_tags(lns)
             for j in lst:
                 spl=j.split('.')
                 if spl[-1]=='osu':
@@ -142,7 +159,7 @@ class Packer(cmd2.Cmd):
                     creator=get_creator(lns)
                     pic_name=get_pic_name(lns)
                     audio_name=get_audio_name(lns)
-                    outfile_str=get_modified_beatmap_str(lns,cntr,song_name,creator,pic_name,audio_name,self.packname)
+                    outfile_str=get_modified_beatmap_str(lns,cntr,song_name,creator,pic_name,audio_name,self.packname,all_tags)
                     osu_file.close()
                     #self.poutput(pic_name)
                     #osu_file=open('tmp//'+str(cntr)+'.osu')
