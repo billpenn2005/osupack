@@ -51,6 +51,12 @@ python osupack.py --dir "TARGETFOLDER" --packname "PACKNAME" --creator "CREATOR"
 ```
 You can omit `--extratags` if not needed.
 
+#### If using the packaged executable:
+```powershell
+osupack.exe --dir "TARGETFOLDER" --packname "PACKNAME" --creator "CREATOR" --extratags "tag1 tag2"
+```
+You can also omit `--extratags` if not needed.
+
 ### 4. Output Files
 - `PACKNAME.osz`: The packed OSU beatmap file
 - `bbcode.txt`: BBCode song list for forum sharing
