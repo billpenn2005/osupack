@@ -1,11 +1,11 @@
 osu file format v14
 
 [General]
-AudioFilename: 0.mp3
+AudioFilename: .mp3
 AudioLeadIn: 0
-PreviewTime: -1
-Countdown: 1
-SampleSet: Soft
+PreviewTime: 220869
+Countdown: 0
+SampleSet: None
 StackLeniency: 0.7
 Mode: 3
 LetterboxInBreaks: 0
@@ -13,18 +13,19 @@ SpecialStyle: 0
 WidescreenStoryboard: 1
 
 [Editor]
-DistanceSpacing: 0.8
-BeatDivisor: 16
-GridSize: 8
-TimelineZoom: 3.799999
+Bookmarks: 116521
+DistanceSpacing: 0.7
+BeatDivisor: 8
+GridSize: 4
+TimelineZoom: 2.799999
 
 [Metadata]
-Title:deleteupondownload
-TitleUnicode:deleteupondownload
-Artist:deleteupondownload
-ArtistUnicode:deleteupondownload
-Creator:deleteupondownload
-Version:deleteupondownload
+Title:delete
+TitleUnicode:delete
+Artist:delete
+ArtistUnicode:delete
+Creator:billpenn
+Version:delete
 Source:
 Tags:
 BeatmapID:0
@@ -40,8 +41,9 @@ SliderTickRate:1
 
 [Events]
 //Background and Video events
-0,0,"0.jpg",0,0
+0,0,"16.png",0,0
 //Break Periods
+2,215,99998799
 //Storyboard Layer 0 (Background)
 //Storyboard Layer 1 (Fail)
 //Storyboard Layer 2 (Pass)
@@ -50,8 +52,11 @@ SliderTickRate:1
 //Storyboard Sound Samples
 
 [TimingPoints]
-15,4000,4,2,0,100,1,0
+0,434.782608695652,4,2,0,15,1,0
+222602,-100,4,2,0,23,0,1
+278254,-100,4,2,0,15,0,0
 
 
 [HitObjects]
-320,192,637599,5,0,0:0:0:0:
+192,192,15,5,0,0:0:0:0:
+64,192,99999999,5,0,0:0:0:0:
