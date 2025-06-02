@@ -10,14 +10,18 @@ def merge_name(song_name=str(),creator=str()):
 def get_songs(song_path):
     return os.listdir(song_path)
 
-def get_modified_beatmap_str(lines,cntr=int(),song_name=str(),creator=str(),pic=str(),aud=str(),pak=str(),tags=str(),pack_creator=str(),snu=str(),diff_name=str(),ispack=False,isperson_pack=False):
-    #print(song_name)
+def get_new_name(song_name,creator,diff_name,ispack,isperson_pack):
     if (not ispack) and (not isperson_pack):
         new_name=merge_name(song_name,creator)
     elif ispack:
         new_name=diff_name
     elif isperson_pack:
         new_name=merge_name(diff_name,creator)
+    return new_name
+
+def get_modified_beatmap_str(lines,cntr=int(),song_name=str(),creator=str(),pic=str(),aud=str(),pak=str(),tags=str(),pack_creator=str(),snu=str(),diff_name=str(),ispack=False,isperson_pack=False):
+    #print(song_name)
+    new_name=get_new_name(song_name,creator,diff_name,ispack,isperson_pack)
     pack_name=pak
     ret=str()
     md=0
@@ -138,9 +142,14 @@ def zipDir(dirpath, outFullName):
             zip.write(os.path.join(path, filename), os.path.join(fpath, filename))
     zip.close()
 
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.abspath(relative_path)
+
 def pack_songs(folderpath, packname, creator, extratags=''):
     print('running')
-    bbcode_file=open('bbcode.txt','a')
+    bbcode_file=open('bbcode.txt','a', encoding='utf-8')
     bbcode_file.write('[box=map list]\n')
     link_template='https://osu.ppy.sh/beatmapsets/{}#mania/{}'
     song_hyperlink_template='[url={}]{}[/url]'
@@ -155,7 +164,7 @@ def pack_songs(folderpath, packname, creator, extratags=''):
     cntr=1
     if not os.path.exists(folderpath+'//delete'):
         os.mkdir(folderpath+'//delete')
-    shutil.copy('0.osu',folderpath+'//delete//0.osu')
+    shutil.copy(resource_path('0.osu'),folderpath+'//delete//0.osu')
     all_tags=extratags
     pack_mp={}
     person_pack_mp={}
@@ -176,8 +185,7 @@ def pack_songs(folderpath, packname, creator, extratags=''):
                 pack_mp[i]=True
             elif spl[-1]=='P_PACK':
                 person_pack_mp[i]=True
-                
-    with open('tags.txt','w') as f:
+    with open('tags.txt','w', encoding='utf-8') as f:
         f.write(all_tags)
     for i in song_list:
         father_path=song_path+'//'+i
@@ -199,7 +207,8 @@ def pack_songs(folderpath, packname, creator, extratags=''):
                 bbcode_file.write(song_hyperlink_template.format(link_template.format(bms_id,bm_id),song_name)+' by '+mapper_hyperlink_template.format(mapper_link_template.format(creator_),creator_)+'\n')
                 outfile_str=get_modified_beatmap_str(lns,cntr,song_name,creator_,pic_name,audio_name,packname,all_tags,creator,snu,diffname,pack_mp[i],person_pack_mp[i])
                 osu_file.close()
-                with open('tmp//Various Artists - '+packname+' ('+creator+') '+'['+merge_name(song_name,creator_)+']'+'.osu', mode="w", encoding="utf-8") as f:
+                new_name=get_new_name(song_name,creator_,diffname,pack_mp[i],person_pack_mp[i])
+                with open('tmp//Various Artists - '+packname+' ('+creator+') '+'['+new_name+']'+'.osu', mode="w", encoding="utf-8") as f:
                     f.write(outfile_str)
                 if os.path.exists(father_path+'//'+pic_name):
                     shutil.copy(father_path+'//'+pic_name,'tmp//'+str(cntr)+'.'+pic_name.split('.')[-1])
